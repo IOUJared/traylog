@@ -87,7 +87,7 @@ struct TodayView: View {
         .foregroundStyle(.secondary)
       Text("\(Int((progress * 100).rounded()))%")
         .font(.subheadline.weight(.semibold))
-        .foregroundStyle(.trayAccent)
+        .foregroundStyle(Color.trayAccent)
         .padding(.top, 2)
     }
   }
