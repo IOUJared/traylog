@@ -32,8 +32,12 @@ jobs:
         run: |
           missing=0
           for name in APPSTORE_KEY_ID APPSTORE_ISSUER_ID APPSTORE_PRIVATE_KEY DEVELOPMENT_TEAM; do
-            if [ -z "${!name}" ]; then
+            value="${!name}"
+            if [ -z "$value" ]; then
               echo "::error::$name is not set. See docs/testflight.md."
+              missing=1
+            elif [[ "$value" == REPLACE_WITH_* ]]; then
+              echo "::error::$name still contains a placeholder. Replace it with the real value."
               missing=1
             fi
           done

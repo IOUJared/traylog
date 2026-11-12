@@ -47,6 +47,13 @@ gh secret set APPSTORE_PRIVATE_KEY --repo IOUJared/traylog
 gh variable set DEVELOPMENT_TEAM --repo IOUJared/traylog
 ```
 
+The repository currently holds placeholder values so the names exist:
+`REPLACE_WITH_KEY_ID`, `REPLACE_WITH_ISSUER_ID`, and
+`REPLACE_WITH_P8_CONTENTS`. Replace them in **Settings → Secrets and variables
+→ Actions**, or overwrite them with the commands above. The workflow refuses to
+start while any value still begins with `REPLACE_WITH_`, so a premature run
+fails with a clear message rather than a signing error.
+
 ## Run it
 
 ```sh
