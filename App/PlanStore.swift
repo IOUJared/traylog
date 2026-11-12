@@ -1,12 +1,11 @@
 import Foundation
 import Observation
 import TrayLogCore
+import WidgetKit
 
 /// Persists the treatment plan and keeps its single change-day reminder in sync.
 @Observable
 final class PlanStore {
-  private static let storageKey = "treatmentPlan.v1"
-
   private(set) var plan: TreatmentPlan?
 
   private let defaults: UserDefaults
@@ -14,14 +13,21 @@ final class PlanStore {
   private let now: () -> Date
 
   init(
-    defaults: UserDefaults = .standard,
+    defaults: UserDefaults? = nil,
     calendar: Calendar = .current,
     now: @escaping () -> Date = Date.init
   ) {
-    self.defaults = defaults
+    let sharedDefaults = defaults ?? UserDefaults(suiteName: PlanStorage.appGroupIdentifier)
+    self.defaults = sharedDefaults ?? .standard
     self.calendar = calendar
     self.now = now
-    self.plan = Self.loadPlan(from: defaults)
+    self.plan = Self.loadPlan(from: self.defaults)
+
+    if plan == nil, let legacyPlan = Self.loadPlan(from: .standard) {
+      self.plan = legacyPlan
+      persist()
+      UserDefaults.standard.removeObject(forKey: PlanStorage.defaultsKey)
+    }
   }
 
   /// The current instant, injected for testability.
@@ -36,6 +42,7 @@ final class PlanStore {
     self.plan = plan
     persist()
     scheduleReminder(for: plan)
+    refreshWidgets()
   }
 
   /// Records a tray change today and updates the reminder.
@@ -45,32 +52,29 @@ final class PlanStore {
     plan = updatedPlan
     persist()
     scheduleReminder(for: updatedPlan)
+    refreshWidgets()
   }
 
   /// Removes the plan and its pending reminder.
   func clear() {
     plan = nil
-    defaults.removeObject(forKey: Self.storageKey)
+    defaults.removeObject(forKey: PlanStorage.defaultsKey)
     Task { await NotificationScheduler.shared.schedule(nil) }
+    refreshWidgets()
   }
 
   private func persist() {
     guard let plan else {
-      defaults.removeObject(forKey: Self.storageKey)
+      defaults.removeObject(forKey: PlanStorage.defaultsKey)
       return
     }
-    guard let data = try? JSONEncoder().encode(plan) else { return }
-    defaults.set(data, forKey: Self.storageKey)
+    guard let data = PlanStorage.encode(plan) else { return }
+    defaults.set(data, forKey: PlanStorage.defaultsKey)
   }
 
   private static func loadPlan(from defaults: UserDefaults) -> TreatmentPlan? {
-    guard
-      let data = defaults.data(forKey: storageKey),
-      let decoded = try? JSONDecoder().decode(TreatmentPlan.self, from: data)
-    else {
-      return nil
-    }
-    return decoded.validated()
+    guard let data = defaults.data(forKey: PlanStorage.defaultsKey) else { return nil }
+    return PlanStorage.decode(data)
   }
 
   private func scheduleReminder(for plan: TreatmentPlan) {
@@ -83,6 +87,10 @@ final class PlanStore {
       )
     }
     Task { await NotificationScheduler.shared.schedule(reminder) }
+  }
+
+  private func refreshWidgets() {
+    WidgetCenter.shared.reloadAllTimelines()
   }
 
   private func reminderTitle(for plan: TreatmentPlan) -> String {

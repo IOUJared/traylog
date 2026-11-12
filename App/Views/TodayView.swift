@@ -107,7 +107,10 @@ struct TodayView: View {
         divider
         row(title: "Change day", value: changeDateText(plan: plan))
         divider
-        row(title: "Status", value: statusText(daysUntilChange: daysUntilChange))
+        row(
+          title: "Status",
+          value: CountdownLabel.changeStatus(daysUntilChange: daysUntilChange)
+        )
         divider
         row(title: "Projected finish", value: projectedText(plan: plan))
       }
@@ -172,20 +175,5 @@ struct TodayView: View {
   private func completedText(plan: TreatmentPlan) -> String {
     guard let completedOn = plan.completedOn else { return "Today" }
     return completedOn.formatted(date: .abbreviated, time: .omitted)
-  }
-
-  private func statusText(daysUntilChange: Int) -> String {
-    switch daysUntilChange {
-    case ..<(-1):
-      return "\(-daysUntilChange) days overdue"
-    case -1:
-      return "1 day overdue"
-    case 0:
-      return "Change due today"
-    case 1:
-      return "Change tomorrow"
-    default:
-      return "Change in \(daysUntilChange) days"
-    }
   }
 }

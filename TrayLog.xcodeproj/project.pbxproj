@@ -10,24 +10,59 @@
 		05DA1B7D6A6454BF1178384F /* ProgressRing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49363678F026997655857469 /* ProgressRing.swift */; };
 		0795F110DFEE49DDC04DB7E7 /* TrayLogApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE17118064B815439055B48 /* TrayLogApp.swift */; };
 		0B6E7A3A3E353D119C0A46F2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6DCEDA13BA01B1AEE3F7E2CA /* Assets.xcassets */; };
+		1AF3F8FA887AF165AAABBE77 /* TrayLogWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8874FE1F781147E89DA79B94 /* TrayLogWidgetBundle.swift */; };
 		1EBA44E03E25AA4E5971EE3A /* PlanFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72D90F4BE1464B08AF99BA7 /* PlanFormView.swift */; };
-		54FA8261760CD8BC84658511 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911D5CA7AAB4D63279665173 /* Theme.swift */; };
+		543B4BF856B9DF247CC627FC /* TrayAccent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66F78AC60B99D7E736B411C /* TrayAccent.swift */; };
 		67978DA5925A8F586DAAC458 /* PlanStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962AC1726ABB202FF6076B22 /* PlanStore.swift */; };
+		6F3AEB3252E0EF6549E8FD06 /* TrayWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E151378678E8213D4E1F088F /* TrayWidgetView.swift */; };
 		7D291DFA331CE6D8B4A125BA /* NotificationScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65832A158107A199F83E3A51 /* NotificationScheduler.swift */; };
+		88871DB19FFA449C4E5FCB09 /* TrayLogWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 5C04343092B19EE00BE215E1 /* TrayLogWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		8CF2B4ACFE548BB375656C63 /* TrayProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1F1A55B553F07417C6B4FB /* TrayProvider.swift */; };
+		A71FCD3D265509F63FAFA306 /* TrayAccent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66F78AC60B99D7E736B411C /* TrayAccent.swift */; };
 		BCE9C1F11790434879786A0A /* TrayLogCore in Frameworks */ = {isa = PBXBuildFile; productRef = 6D1AD36344B5B25F82071820 /* TrayLogCore */; };
+		BDBC095A2CD3D6CAE3A23C58 /* TrayLogCore in Frameworks */ = {isa = PBXBuildFile; productRef = 4707E12169DE188314AC8014 /* TrayLogCore */; };
 		C411278FDF4F82B4DE4E8630 /* TodayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7B12ED3D577E6549E5F960 /* TodayView.swift */; };
 		E3AC9149E9B82D123DB004B6 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22032E4F330D78F8A017FD5 /* RootView.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		D5506CDA1270BD126AA7E83F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A71A8FE33F7F707208E078C6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A54333773B4433C425BDDBCB;
+			remoteInfo = TrayLogWidget;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		CF7496CEC90FBF50E2C91BCE /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				88871DB19FFA449C4E5FCB09 /* TrayLogWidget.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		0248E12D56924485BB582402 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		2AE17118064B815439055B48 /* TrayLogApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrayLogApp.swift; sourceTree = "<group>"; };
 		49363678F026997655857469 /* ProgressRing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressRing.swift; sourceTree = "<group>"; };
+		5C04343092B19EE00BE215E1 /* TrayLogWidget.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = TrayLogWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		65832A158107A199F83E3A51 /* NotificationScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationScheduler.swift; sourceTree = "<group>"; };
 		67926A3F6CF2CA432BBBAE27 /* TrayLog.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = TrayLog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DCEDA13BA01B1AEE3F7E2CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		911D5CA7AAB4D63279665173 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		8874FE1F781147E89DA79B94 /* TrayLogWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrayLogWidgetBundle.swift; sourceTree = "<group>"; };
 		962AC1726ABB202FF6076B22 /* PlanStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanStore.swift; sourceTree = "<group>"; };
+		AF1F1A55B553F07417C6B4FB /* TrayProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrayProvider.swift; sourceTree = "<group>"; };
+		B66F78AC60B99D7E736B411C /* TrayAccent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrayAccent.swift; sourceTree = "<group>"; };
 		DDE59335EC81FFBE0A3B9BF0 /* Core */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Core; path = Core; sourceTree = SOURCE_ROOT; };
+		E151378678E8213D4E1F088F /* TrayWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrayWidgetView.swift; sourceTree = "<group>"; };
 		F22032E4F330D78F8A017FD5 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		F72D90F4BE1464B08AF99BA7 /* PlanFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanFormView.swift; sourceTree = "<group>"; };
 		FA7B12ED3D577E6549E5F960 /* TodayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayView.swift; sourceTree = "<group>"; };
@@ -42,13 +77,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		9AE1C0E61375F99ED569CFE8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BDBC095A2CD3D6CAE3A23C58 /* TrayLogCore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		564D8F766D48FB76E8AB9B19 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				C41B95280E097BECF4750181 /* Support */,
 				DDD04BCFC2D94F4E36C0BA02 /* Views */,
 				6DCEDA13BA01B1AEE3F7E2CA /* Assets.xcassets */,
 				65832A158107A199F83E3A51 /* NotificationScheduler.swift */,
@@ -63,6 +105,8 @@
 			children = (
 				564D8F766D48FB76E8AB9B19 /* App */,
 				9E36A039B80892968C84B131 /* Packages */,
+				EA3CC1EBAF0A55AE602C7973 /* Shared */,
+				B0B3D384CAB42007C4835A51 /* Widget */,
 				C10AF6954A8C1F01BBB29D34 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -75,20 +119,24 @@
 			name = Packages;
 			sourceTree = "<group>";
 		};
+		B0B3D384CAB42007C4835A51 /* Widget */ = {
+			isa = PBXGroup;
+			children = (
+				0248E12D56924485BB582402 /* Info.plist */,
+				8874FE1F781147E89DA79B94 /* TrayLogWidgetBundle.swift */,
+				AF1F1A55B553F07417C6B4FB /* TrayProvider.swift */,
+				E151378678E8213D4E1F088F /* TrayWidgetView.swift */,
+			);
+			path = Widget;
+			sourceTree = "<group>";
+		};
 		C10AF6954A8C1F01BBB29D34 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				67926A3F6CF2CA432BBBAE27 /* TrayLog.app */,
+				5C04343092B19EE00BE215E1 /* TrayLogWidget.appex */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		C41B95280E097BECF4750181 /* Support */ = {
-			isa = PBXGroup;
-			children = (
-				911D5CA7AAB4D63279665173 /* Theme.swift */,
-			);
-			path = Support;
 			sourceTree = "<group>";
 		};
 		DDD04BCFC2D94F4E36C0BA02 /* Views */ = {
@@ -102,6 +150,14 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		EA3CC1EBAF0A55AE602C7973 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				B66F78AC60B99D7E736B411C /* TrayAccent.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -112,10 +168,12 @@
 				79F5EF77515EB12B062997DF /* Sources */,
 				A218C717EF1A7EA89B2C9567 /* Resources */,
 				26717CF4892443C8F61171A1 /* Frameworks */,
+				CF7496CEC90FBF50E2C91BCE /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				E1B43B70F9E845632D681B6B /* PBXTargetDependency */,
 			);
 			name = TrayLog;
 			packageProductDependencies = (
@@ -124,6 +182,25 @@
 			productName = TrayLog;
 			productReference = 67926A3F6CF2CA432BBBAE27 /* TrayLog.app */;
 			productType = "com.apple.product-type.application";
+		};
+		A54333773B4433C425BDDBCB /* TrayLogWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DD826550A81447A77884F0DF /* Build configuration list for PBXNativeTarget "TrayLogWidget" */;
+			buildPhases = (
+				C220DB1BA0A8F227E2F95E98 /* Sources */,
+				9AE1C0E61375F99ED569CFE8 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TrayLogWidget;
+			packageProductDependencies = (
+				4707E12169DE188314AC8014 /* TrayLogCore */,
+			);
+			productName = TrayLogWidget;
+			productReference = 5C04343092B19EE00BE215E1 /* TrayLogWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -157,6 +234,7 @@
 			projectRoot = "";
 			targets = (
 				739D86A0ABAE5202FD9C797E /* TrayLog */,
+				A54333773B4433C425BDDBCB /* TrayLogWidget */,
 			);
 		};
 /* End PBXProject section */
@@ -182,13 +260,32 @@
 				67978DA5925A8F586DAAC458 /* PlanStore.swift in Sources */,
 				05DA1B7D6A6454BF1178384F /* ProgressRing.swift in Sources */,
 				E3AC9149E9B82D123DB004B6 /* RootView.swift in Sources */,
-				54FA8261760CD8BC84658511 /* Theme.swift in Sources */,
 				C411278FDF4F82B4DE4E8630 /* TodayView.swift in Sources */,
+				A71FCD3D265509F63FAFA306 /* TrayAccent.swift in Sources */,
 				0795F110DFEE49DDC04DB7E7 /* TrayLogApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C220DB1BA0A8F227E2F95E98 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				543B4BF856B9DF247CC627FC /* TrayAccent.swift in Sources */,
+				1AF3F8FA887AF165AAABBE77 /* TrayLogWidgetBundle.swift in Sources */,
+				8CF2B4ACFE548BB375656C63 /* TrayProvider.swift in Sources */,
+				6F3AEB3252E0EF6549E8FD06 /* TrayWidgetView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E1B43B70F9E845632D681B6B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A54333773B4433C425BDDBCB /* TrayLogWidget */;
+			targetProxy = D5506CDA1270BD126AA7E83F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		14D81DA262ACB6B986799027 /* Release */ = {
@@ -196,6 +293,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Config/TrayLog.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -214,6 +312,27 @@
 				PRODUCT_NAME = TrayLog;
 				SDKROOT = iphoneos;
 				SUPPORTS_MACCATALYST = NO;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		22BD4C97930C5EE4569E41CA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Config/TrayLogWidget.entitlements;
+				CURRENT_PROJECT_VERSION = 1;
+				INFOPLIST_FILE = Widget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ioujared.traylog.widget;
+				PRODUCT_NAME = TrayLogWidget;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -282,6 +401,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Config/TrayLog.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -370,6 +490,27 @@
 			};
 			name = Debug;
 		};
+		F0B176F24CD6FC577A5087FE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Config/TrayLogWidget.entitlements;
+				CURRENT_PROJECT_VERSION = 1;
+				INFOPLIST_FILE = Widget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ioujared.traylog.widget;
+				PRODUCT_NAME = TrayLogWidget;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -391,6 +532,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
+		DD826550A81447A77884F0DF /* Build configuration list for PBXNativeTarget "TrayLogWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F0B176F24CD6FC577A5087FE /* Debug */,
+				22BD4C97930C5EE4569E41CA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
@@ -401,6 +551,10 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		4707E12169DE188314AC8014 /* TrayLogCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TrayLogCore;
+		};
 		6D1AD36344B5B25F82071820 /* TrayLogCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = TrayLogCore;

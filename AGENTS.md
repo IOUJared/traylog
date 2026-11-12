@@ -12,13 +12,18 @@ tray am I on, and when do I change?" in one glance and gets a reliable reminder.
 ## Stack and entry points
 
 - Language and runtime: Swift 6 (iOS 17+), Foundation-only core
-- Framework: SwiftUI, UserNotifications, Observation
-- Main entry point: `App/TrayLogApp.swift` → `App/Views/RootView.swift`
+- Framework: SwiftUI, WidgetKit, UserNotifications, Observation
+- Main entry point: `App/TrayLogApp.swift` → `App/Views/RootView.swift`;
+  widget entry `Widget/TrayLogWidgetBundle.swift`
 - Key directories:
   - `Core/` — platform-independent Swift package (`TrayLogCore`) with the
     treatment-plan model and all schedule/reminder date math; tested on Linux
     and in CI
   - `App/` — SwiftUI app target; no business rules that belong in `Core`
+  - `Widget/` — WidgetKit extension; reads the shared plan, never writes it
+  - `Shared/` — sources compiled into both app and widget (accent color)
+  - `Config/` — entitlements for the App Group
+  - `docs/` — TestFlight setup and release notes
   - `project.yml` — XcodeGen spec; the Xcode project is generated, not edited
 
 ## Commands
@@ -31,6 +36,7 @@ tray am I on, and when do I change?" in one glance and gets a reliable reminder.
 | Lint | (none configured; Swift 6 warnings are errors in the app target) |
 | Typecheck | `swift build --package-path Core` |
 | Build | `xcodebuild -project TrayLog.xcodeproj -scheme TrayLog -destination 'generic/platform=iOS Simulator' CODE_SIGNING_ALLOWED=NO build` |
+| TestFlight | `gh workflow run testflight.yml` (needs account setup, see `docs/testflight.md`) |
 
 This repository is developed on Linux, where the iOS SDK is unavailable. Local
 verification is `swift test --package-path Core`; the iOS build is verified by
@@ -46,9 +52,12 @@ without that CI result or a local Xcode build.
   the current tray started). Changing trays moves the baseline to the day the
   user records the change, so early and late changes shift the rest of the
   schedule without drift.
-- `App/PlanStore.swift` persists one plan as JSON in `UserDefaults`, validates
-  decoded values through `TreatmentPlan.validated()`, and asks
-  `NotificationScheduler` to replace the single pending reminder.
+- `App/PlanStore.swift` persists one plan as JSON in the App Group defaults
+  (`group.com.ioujared.traylog`), validates decoded values through
+  `TreatmentPlan.validated()`, asks `NotificationScheduler` to replace the
+  single pending reminder, and asks WidgetKit to reload timelines.
+- The widget target reads the same defaults through `PlanStorage` and must never
+  write them. Any change to the storage key or App Group ID breaks the widget.
 - Only one change reminder is pending at a time, under the fixed identifier
   `tray-change-next`. Rescheduling removes it first.
 - No networking, no third-party dependencies, no data collection.
@@ -67,8 +76,10 @@ without that CI result or a local Xcode build.
 ## Verification before completion
 
 1. `swift test --package-path Core` passes.
-2. The GitHub Actions `Build iOS app` job passes on the pushed commit.
-3. Any schedule or reminder change has a test in
+2. The GitHub Actions `Build iOS app` job passes on the pushed commit; it also
+   compiles the widget extension unsigned.
+3. A TestFlight run uploads a build (only when the account secrets exist).
+4. Any schedule or reminder change has a test in
    `Core/Tests/TrayLogCoreTests/TreatmentPlanTests.swift` that fails without it.
 
 ## Domain glossary

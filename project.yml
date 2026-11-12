@@ -24,8 +24,11 @@ targets:
     deploymentTarget: "17.0"
     sources:
       - path: App
+      - path: Shared
     dependencies:
       - package: TrayLogCore
+      - target: TrayLogWidget
+        embed: true
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.ioujared.traylog
@@ -40,8 +43,36 @@ targets:
         TARGETED_DEVICE_FAMILY: "1"
         SUPPORTS_MACCATALYST: NO
         CODE_SIGN_STYLE: Automatic
+        CODE_SIGN_ENTITLEMENTS: Config/TrayLog.entitlements
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+
+  TrayLogWidget:
+    type: app-extension
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: Widget
+      - path: Shared
+    dependencies:
+      - package: TrayLogCore
+    info:
+      path: Widget/Info.plist
+      properties:
+        CFBundleDisplayName: TrayLog
+        CFBundleShortVersionString: "$(MARKETING_VERSION)"
+        CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.ioujared.traylog.widget
+        PRODUCT_NAME: TrayLogWidget
+        MARKETING_VERSION: "1.0"
+        CURRENT_PROJECT_VERSION: "1"
+        SKIP_INSTALL: YES
+        TARGETED_DEVICE_FAMILY: "1"
+        CODE_SIGN_ENTITLEMENTS: Config/TrayLogWidget.entitlements
 
 schemes:
   TrayLog:

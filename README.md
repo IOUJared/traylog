@@ -12,6 +12,8 @@ stays in `UserDefaults` on your phone.
 
 - Shows the current tray, the day within that tray, and overall treatment
   progress
+- Home-screen widget (small and medium) plus lock-screen accessory widgets with
+  the tray, day, and change countdown
 - Shows the change day, "in N days" / "due today" / "N days overdue", and a
   projected finish date
 - Sends one local notification on change day at the time you choose
@@ -25,8 +27,12 @@ stays in `UserDefaults` on your phone.
 ## Requirements
 
 - iPhone on iOS 17 or later
-- macOS with Xcode 16+ and [XcodeGen](https://github.com/yonaskolb/XcodeGen) to
-  build from source (`brew install xcodegen`)
+- A paid Apple Developer Program membership to install the **widget** (App
+  Groups are not available to free Apple IDs) and to use TestFlight
+- macOS with Xcode 16+ to build from source
+
+Free Apple ID builds can still run the app if you remove the widget dependency
+and the App Group entitlement, but the widget needs the paid account.
 
 ## Build and run
 
@@ -38,9 +44,9 @@ The Xcode project is committed, so no extra tooling is needed to build. It is
 generated from `project.yml`; after editing that file, regenerate it with
 `xcodegen generate` (`brew install xcodegen`).
 
-Select your iPhone and run. To install without a paid Apple Developer account,
-use a free Apple ID with Xcode's personal team (the app must be re-signed every
-7 days), or sideload with AltStore/SideStore.
+Select your iPhone and run. With a free Apple ID, remove the widget target and
+the App Group entitlement first (see Requirements); then use Xcode's personal
+team and re-sign every 7 days.
 
 ### Tests
 
@@ -53,6 +59,26 @@ swift test --package-path Core
 
 The GitHub Actions workflow runs those tests on Linux and builds the app for the
 iOS Simulator on macOS. The iOS build cannot be verified on a Linux host.
+
+## Widget
+
+`TrayLogWidget` is a WidgetKit extension embedded in the app. It reads the plan
+from the shared App Group `group.com.ioujared.traylog`, so adding, editing, or
+advancing a tray refreshes the widget immediately.
+
+Families: small, medium, lock-screen circular, and lock-screen rectangular. It
+builds a week of daily entries so the countdown rolls over at midnight without
+opening the app, and the widget shows an empty state until a plan exists.
+
+Both targets carry the App Group entitlement in `Config/`. Register the group in
+the developer portal and enable it on both App IDs before signing.
+
+## TestFlight
+
+`.github/workflows/testflight.yml` archives the app and uploads it to App Store
+Connect on a `v*` tag or manual dispatch. It needs a paid Apple Developer
+Program membership, an App Store Connect API key, and the App Group above. Full
+setup and troubleshooting: [docs/testflight.md](docs/testflight.md).
 
 ## How the schedule works
 
@@ -68,7 +94,7 @@ disabling reminders replaces or removes it.
 ## Privacy
 
 - No networking code, no accounts, no telemetry
-- Data stored locally in `UserDefaults`
+- Data stored in the shared App Group container on your phone
 - Notifications are generated on-device
 - MIT licensed, so the claims above are verifiable
 
