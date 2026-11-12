@@ -25,7 +25,6 @@ jobs:
       APPSTORE_ISSUER_ID: ${{ secrets.APPSTORE_ISSUER_ID }}
       APPSTORE_PRIVATE_KEY: ${{ secrets.APPSTORE_PRIVATE_KEY }}
       DEVELOPMENT_TEAM: ${{ vars.DEVELOPMENT_TEAM }}
-      KEY_PATH: ${{ runner.temp }}/private_keys/AuthKey.p8
     steps:
       - uses: actions/checkout@v4
 
@@ -42,9 +41,11 @@ jobs:
 
       - name: Install App Store Connect key
         run: |
-          mkdir -p "$(dirname "$KEY_PATH")"
-          printf '%s' "$APPSTORE_PRIVATE_KEY" > "$KEY_PATH"
-          chmod 600 "$KEY_PATH"
+          key_path="$RUNNER_TEMP/private_keys/AuthKey.p8"
+          mkdir -p "$(dirname "$key_path")"
+          printf '%s' "$APPSTORE_PRIVATE_KEY" > "$key_path"
+          chmod 600 "$key_path"
+          echo "KEY_PATH=$key_path" >> "$GITHUB_ENV"
 
       - name: Resolve version
         run: |
@@ -108,4 +109,7 @@ jobs:
 
       - name: Remove App Store Connect key
         if: always()
-        run: rm -f "$KEY_PATH"
+        run: |
+          if [ -n "$KEY_PATH" ]; then
+            rm -f "$KEY_PATH"
+          fi
