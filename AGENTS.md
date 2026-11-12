@@ -77,6 +77,9 @@ without that CI result or a local Xcode build.
 - The app must remain useful with notifications denied: the plan screen and
   overdue state carry the same information.
 - `SWIFT_TREAT_WARNINGS_AS_ERRORS` is on; keep the build warning-free.
+- Numeric plan fields use `CountFieldRow`; parsing and clamping live in
+  `NumberEntry` and are covered by tests. Keep form input clamped in the UI,
+  never accepted raw into a plan.
 
 ## Verification before completion
 

@@ -73,6 +73,7 @@ struct PlanFormView: View {
       }
       .navigationTitle(mode == .create ? "New plan" : "Plan")
       .navigationBarTitleDisplayMode(.inline)
+      .scrollDismissesKeyboard(.interactively)
       .toolbar {
         ToolbarItem(placement: .cancellationAction) {
           Button("Cancel") {
@@ -117,15 +118,9 @@ struct PlanFormView: View {
 
   private var planSection: some View {
     Section {
-      Stepper(value: $totalTrays, in: 1...300) {
-        LabeledContent("Total trays", value: "\(totalTrays)")
-      }
-      Stepper(value: $daysPerTray, in: 1...60) {
-        LabeledContent("Days per tray", value: "\(daysPerTray)")
-      }
-      Stepper(value: $currentTray, in: 1...totalTrays) {
-        LabeledContent("Current tray", value: "\(currentTray)")
-      }
+      CountFieldRow(title: "Total trays", value: $totalTrays, range: 1...300)
+      CountFieldRow(title: "Days per tray", value: $daysPerTray, range: 1...60)
+      CountFieldRow(title: "Current tray", value: $currentTray, range: 1...totalTrays)
       Picker("Calculate from", selection: $dateAnchor) {
         Text("Treatment start").tag(DateAnchor.treatmentStart)
         Text("Current tray start").tag(DateAnchor.currentTrayStart)

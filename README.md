@@ -23,6 +23,8 @@ stays in `UserDefaults` on your phone.
   early or late shifts the rest of the schedule instead of drifting
 - Set the schedule from either the whole-treatment start date or the current
   tray's start; the other date is calculated
+- Type tray counts directly or use the +/- buttons; values are clamped to
+  sensible ranges
 - Handles the final tray and marks the plan complete
 - Works with notifications denied — the plan screen carries the same
   information

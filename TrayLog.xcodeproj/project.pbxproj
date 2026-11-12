@@ -24,6 +24,7 @@
 		BDBC095A2CD3D6CAE3A23C58 /* TrayLogCore in Frameworks */ = {isa = PBXBuildFile; productRef = 4707E12169DE188314AC8014 /* TrayLogCore */; };
 		C411278FDF4F82B4DE4E8630 /* TodayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7B12ED3D577E6549E5F960 /* TodayView.swift */; };
 		E3AC9149E9B82D123DB004B6 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22032E4F330D78F8A017FD5 /* RootView.swift */; };
+		F20989FF08294EEDE99AFB9E /* CountFieldRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC03DAE816C7C0AF20102010 /* CountFieldRow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		AF1F1A55B553F07417C6B4FB /* TrayProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrayProvider.swift; sourceTree = "<group>"; };
 		B280C0A04436A75DECFE47F0 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		B66F78AC60B99D7E736B411C /* TrayAccent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrayAccent.swift; sourceTree = "<group>"; };
+		BC03DAE816C7C0AF20102010 /* CountFieldRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountFieldRow.swift; sourceTree = "<group>"; };
 		DDE59335EC81FFBE0A3B9BF0 /* Core */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Core; path = Core; sourceTree = SOURCE_ROOT; };
 		E151378678E8213D4E1F088F /* TrayWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrayWidgetView.swift; sourceTree = "<group>"; };
 		F22032E4F330D78F8A017FD5 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				B280C0A04436A75DECFE47F0 /* CalendarView.swift */,
+				BC03DAE816C7C0AF20102010 /* CountFieldRow.swift */,
 				F72D90F4BE1464B08AF99BA7 /* PlanFormView.swift */,
 				49363678F026997655857469 /* ProgressRing.swift */,
 				F22032E4F330D78F8A017FD5 /* RootView.swift */,
@@ -259,6 +262,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				49E83DB0070CBC3C90248982 /* CalendarView.swift in Sources */,
+				F20989FF08294EEDE99AFB9E /* CountFieldRow.swift in Sources */,
 				7D291DFA331CE6D8B4A125BA /* NotificationScheduler.swift in Sources */,
 				1EBA44E03E25AA4E5971EE3A /* PlanFormView.swift in Sources */,
 				67978DA5925A8F586DAAC458 /* PlanStore.swift in Sources */,
