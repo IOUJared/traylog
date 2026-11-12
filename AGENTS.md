@@ -58,6 +58,9 @@ without that CI result or a local Xcode build.
   (`group.com.ioujared.traylog`), validates decoded values through
   `TreatmentPlan.validated()`, asks `NotificationScheduler` to replace the
   single pending reminder, and asks WidgetKit to reload timelines.
+- The plan editor accepts either the treatment start or the current tray start.
+  `PlanDates` converts both ways; the stored model is always the current tray
+  and its start date, so nothing else needs to know which anchor was used.
 - The widget target reads the same defaults through `PlanStorage` and must never
   write them. Any change to the storage key or App Group ID breaks the widget.
 - Only one change reminder is pending at a time, under the fixed identifier

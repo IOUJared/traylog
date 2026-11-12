@@ -21,6 +21,8 @@ stays in `UserDefaults` on your phone.
 - Sends one local notification on change day at the time you choose
 - Records a tray change in one tap; the next tray starts that day, so changing
   early or late shifts the rest of the schedule instead of drifting
+- Set the schedule from either the whole-treatment start date or the current
+  tray's start; the other date is calculated
 - Handles the final tray and marks the plan complete
 - Works with notifications denied — the plan screen carries the same
   information

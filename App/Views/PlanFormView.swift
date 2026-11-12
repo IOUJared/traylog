@@ -8,6 +8,11 @@ struct PlanFormView: View {
     case edit
   }
 
+  private enum DateAnchor: Hashable {
+    case treatmentStart
+    case currentTrayStart
+  }
+
   @Environment(PlanStore.self) private var store
   @Environment(\.dismiss) private var dismiss
 
@@ -16,7 +21,9 @@ struct PlanFormView: View {
   @State private var totalTrays: Int
   @State private var daysPerTray: Int
   @State private var currentTray: Int
+  @State private var dateAnchor: DateAnchor
   @State private var trayStartDate: Date
+  @State private var treatmentStartDate: Date
   @State private var reminderEnabled: Bool
   @State private var reminderTime: Date
   @State private var errorMessage: String?
@@ -31,7 +38,12 @@ struct PlanFormView: View {
     _totalTrays = State(initialValue: plan?.totalTrays ?? 20)
     _daysPerTray = State(initialValue: plan?.daysPerTray ?? 14)
     _currentTray = State(initialValue: plan?.currentTray ?? 1)
-    _trayStartDate = State(initialValue: plan?.trayStartDate ?? calendar.startOfDay(for: .now))
+
+    let trayStart = plan?.trayStartDate ?? calendar.startOfDay(for: .now)
+    _trayStartDate = State(initialValue: trayStart)
+    _treatmentStartDate = State(initialValue: plan?.treatmentStartDate() ?? trayStart)
+    _dateAnchor = State(initialValue: mode == .create ? .treatmentStart : .currentTrayStart)
+
     _reminderEnabled = State(initialValue: plan?.notificationsEnabled ?? true)
 
     let base = calendar.startOfDay(for: .now)
@@ -114,15 +126,89 @@ struct PlanFormView: View {
       Stepper(value: $currentTray, in: 1...totalTrays) {
         LabeledContent("Current tray", value: "\(currentTray)")
       }
-      DatePicker("Current tray started", selection: $trayStartDate, displayedComponents: .date)
+      Picker("Calculate from", selection: $dateAnchor) {
+        Text("Treatment start").tag(DateAnchor.treatmentStart)
+        Text("Current tray start").tag(DateAnchor.currentTrayStart)
+      }
+      .pickerStyle(.segmented)
+
+      if dateAnchor == .treatmentStart {
+        DatePicker(
+          "Treatment started",
+          selection: $treatmentStartDate,
+          displayedComponents: .date
+        )
+      } else {
+        DatePicker("Current tray started", selection: $trayStartDate, displayedComponents: .date)
+      }
     } header: {
       Text("Treatment")
     } footer: {
-      Text("Changing a tray resets its start date to the day you record the change.")
+      scheduleFooter
     }
     .onChange(of: totalTrays) { _, newValue in
       if currentTray > newValue {
         currentTray = newValue
+      }
+    }
+    .onChange(of: dateAnchor) { _, newValue in
+      syncDates(to: newValue)
+    }
+  }
+
+  @ViewBuilder
+  private var scheduleFooter: some View {
+    if dateAnchor == .treatmentStart, let derived = derivedTrayStartDate {
+      if derived > Calendar.current.startOfDay(for: .now) {
+        Text(
+          "Tray \(currentTray) starts \(shortDate(derived)) — in the future. "
+            + "Check the treatment start and tray number."
+        )
+        .foregroundStyle(.orange)
+      } else {
+        Text(
+          "Tray \(currentTray) starts \(shortDate(derived)). Trays are assumed to "
+            + "change every \(daysPerTray) days from the treatment start."
+        )
+      }
+    } else {
+      Text("Changing a tray resets its start date to the day you record the change.")
+    }
+  }
+
+  private var derivedTrayStartDate: Date? {
+    PlanDates.currentTrayStartDate(
+      treatmentStartDate: treatmentStartDate,
+      currentTray: currentTray,
+      daysPerTray: daysPerTray,
+      calendar: Calendar.current
+    )
+  }
+
+  private func shortDate(_ date: Date) -> String {
+    date.formatted(date: .abbreviated, time: .omitted)
+  }
+
+  private func syncDates(to anchor: DateAnchor) {
+    let calendar = Calendar.current
+    switch anchor {
+    case .treatmentStart:
+      if let start = PlanDates.treatmentStartDate(
+        currentTrayStartDate: trayStartDate,
+        currentTray: currentTray,
+        daysPerTray: daysPerTray,
+        calendar: calendar
+      ) {
+        treatmentStartDate = start
+      }
+    case .currentTrayStart:
+      if let start = PlanDates.currentTrayStartDate(
+        treatmentStartDate: treatmentStartDate,
+        currentTray: currentTray,
+        daysPerTray: daysPerTray,
+        calendar: calendar
+      ) {
+        trayStartDate = start
       }
     }
   }
@@ -154,18 +240,34 @@ struct PlanFormView: View {
     let components = calendar.dateComponents([.hour, .minute], from: reminderTime)
     let completedOn = mode == .edit ? store.plan?.completedOn : nil
 
-    guard
-      let plan = TreatmentPlan(
+    let tray = min(currentTray, totalTrays)
+    let candidate: TreatmentPlan?
+    switch dateAnchor {
+    case .treatmentStart:
+      candidate = TreatmentPlan(
         totalTrays: totalTrays,
         daysPerTray: daysPerTray,
-        currentTray: min(currentTray, totalTrays),
+        currentTray: tray,
+        treatmentStartDate: treatmentStartDate,
+        reminderHour: components.hour ?? 20,
+        reminderMinute: components.minute ?? 0,
+        notificationsEnabled: reminderEnabled,
+        completedOn: completedOn
+      )
+    case .currentTrayStart:
+      candidate = TreatmentPlan(
+        totalTrays: totalTrays,
+        daysPerTray: daysPerTray,
+        currentTray: tray,
         trayStartDate: calendar.startOfDay(for: trayStartDate),
         reminderHour: components.hour ?? 20,
         reminderMinute: components.minute ?? 0,
         notificationsEnabled: reminderEnabled,
         completedOn: completedOn
       )
-    else {
+    }
+
+    guard let plan = candidate else {
       errorMessage = "Check the tray count and days per tray."
       return
     }
