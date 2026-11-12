@@ -72,6 +72,7 @@ targets:
         CURRENT_PROJECT_VERSION: "1"
         SKIP_INSTALL: YES
         TARGETED_DEVICE_FAMILY: "1"
+        APPLICATION_EXTENSION_API_ONLY: YES
         CODE_SIGN_ENTITLEMENTS: Config/TrayLogWidget.entitlements
 
 schemes:
