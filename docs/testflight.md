@@ -69,6 +69,11 @@ git tag v1.0 && git push origin v1.0
 
 ## Signing
 
+The workflow selects the newest Xcode installed on the runner before archiving.
+That matters: App Store Connect rejects uploads built with an SDK older than
+iOS 26, and the `macos-15` default is Xcode 16.4. Check the "Select the newest
+Xcode" step output if the archive suddenly fails validation.
+
 The workflow uses Xcode's automatic cloud signing with the App Store Connect
 API key (`-allowProvisioningUpdates` plus `-authenticationKey*`). With an Admin
 or App Manager key, `xcodebuild` creates the distribution certificate and
