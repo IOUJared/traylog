@@ -25,6 +25,21 @@ jobs:
     runs-on: macos-15
     steps:
       - uses: actions/checkout@v4
+      - name: Select the newest Xcode
+        run: |
+          latest=$(python3 - <<'PY'
+          import glob, re
+
+          def version(path):
+              match = re.search(r"Xcode_([0-9.]+)\.app$", path)
+              return tuple(int(part) for part in match.group(1).split(".")) if match else (0,)
+
+          print(max(glob.glob("/Applications/Xcode_*.app"), key=version))
+          PY
+          )
+          echo "Selecting $latest"
+          sudo xcode-select -s "$latest"
+          xcodebuild -version
       - name: Run core tests with Apple's toolchain
         run: swift test --package-path Core
       - name: Build for iOS Simulator
