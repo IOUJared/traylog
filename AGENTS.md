@@ -20,6 +20,8 @@ tray am I on, and when do I change?" in one glance and gets a reliable reminder.
     treatment-plan model and all schedule/reminder date math; tested on Linux
     and in CI
   - `App/` — SwiftUI app target; no business rules that belong in `Core`
+  - `App/Views/CalendarView.swift` — month grid of change days, built on
+    `MonthGrid` and `TreatmentPlan.trayPeriods` in `Core`
   - `Widget/` — WidgetKit extension; reads the shared plan, never writes it
   - `Shared/` — sources compiled into both app and widget (accent color)
   - `Config/` — entitlements for the App Group

@@ -16,6 +16,8 @@ stays in `UserDefaults` on your phone.
   the tray, day, and change countdown
 - Shows the change day, "in N days" / "due today" / "N days overdue", and a
   projected finish date
+- Calendar tab with every tray's change day marked, month navigation, progress,
+  and a list of the next five switches
 - Sends one local notification on change day at the time you choose
 - Records a tray change in one tap; the next tray starts that day, so changing
   early or late shifts the rest of the schedule instead of drifting

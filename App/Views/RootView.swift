@@ -4,16 +4,28 @@ struct RootView: View {
   @Environment(PlanStore.self) private var store
 
   var body: some View {
-    NavigationStack {
-      Group {
-        if store.plan == nil {
-          EmptyPlanView()
-        } else {
-          TodayView()
+    TabView {
+      NavigationStack {
+        Group {
+          if store.plan == nil {
+            EmptyPlanView()
+          } else {
+            TodayView()
+          }
         }
+        .navigationTitle("TrayLog")
+        .navigationBarTitleDisplayMode(.inline)
       }
-      .navigationTitle("TrayLog")
-      .navigationBarTitleDisplayMode(.inline)
+      .tabItem {
+        Label("Today", systemImage: "sun.max")
+      }
+
+      NavigationStack {
+        CalendarView()
+      }
+      .tabItem {
+        Label("Calendar", systemImage: "calendar")
+      }
     }
   }
 }
